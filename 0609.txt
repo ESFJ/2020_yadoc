@@ -1,0 +1,185 @@
+----------------------------0609---------------------------------------
+클래스 / 인스턴스 차이점
+  클래스
+    붕어빵틀
+  인스턴스
+    붕어빵
+  인스턴스가 나오려면 반드시 클래스가 있어야한다.
+  하나의 클래스에 인스턴스는 여러개 생성 가능
+
+웹
+  웹서버와 웹클라이언트로 구성
+
+  웹 서버
+    클라이언트에 자료를 제공
+    휴대폰도 자료를 제공만 할수있으면 서버가 될수있음
+    Apache를 가장 많이 사용 (java웹서버는 톰캣)
+    클라이언트가 요청한 결과를 전송
+  
+  웹 클라이언트
+    웹서버에 접속해 데이터를 받아오는 것
+    
+  웹 응용 프로그램
+    웹서버에서 실행되는 응용프로그램(웹, 앱)
+    클라이언트가 요청하는 자료를 가지고있으면 다 응용프로그램
+    정적파일
+      html, 멀티미디어파일, 엑셀파일 등
+      요청하면 보여주고 변함이 없는 파일들
+    동적파일
+      실행이 필요한 코드를 가지고있는 파일
+      servlet, jsp, asp php등 
+
+  하나의 웹서버에는 여러개의 웹 응용 프로그램들이 존재할 수 있다.
+  하나의 건물이 있으면 그 건물에 여러 가게가 있듯 있음
+  클라이언트 입장에서는 그냥 url로 접근하는거지만 웹서버 입장에서는 여러 응용프로그램이 있는것
+
+  웹사이트
+    웹서버는 프로그램, 웹사이트는 "위치"
+    어디에 있는지의 이야기
+
+  URL
+    uniform resource locator
+    http, https :// 로 시작하고 웹서버.도메인 으로 이루어져있음
+    포트번호는 생략가능, 웹서버명도 생략가능
+    http://(www.)naver.com(:8080)
+    url은 직접 정하지않음 웹서버관리자가 정함
+
+  HTTP
+    서버와 클라이언트는 소켓통신을 함.
+    tcp/ip 프로토콜을 사용해 통신
+    client -요청-> <-응답- server
+
+  웹 응용 프로그램 폴더 구조
+    정적파일, JSP : 
+    폴더 : 
+    WEB-INF : 클라이언트가 접근 불가능
+      classes : 우리가 만든 자바 프로그램이 들어감
+      lib : 같이쓰는 라이브러리 저장
+      web.xml : DD, 없으면 안됨. 웹서버에 어떻게 올리는지에 대한 설명이 들어가 있음
+    
+이클립스에 tomcat 연결하기
+  윈도우 -> 프레퍼런스 -> 서버 -> 런타임 인바이러먼트 -> add -> apache -> apache tomcat v9.0 ->(next) -> 톰캣 깔린 폴더 가져오기(installation directory)
+
+웹 응용 프로그램
+  dynamic web project(javaEE버전에서 생성) -> next하고 generate web.xml 어쩌구 체크해주기!!
+
+
+Servlet
+  동적인 파일이다.
+  하나의 java class이다.
+  서버에서 객체(=인스턴스) 생성후 사용된다.
+  클라이언트가 요청하면 서블릿의 특정 메소드가 호출되어 응답을 생성한다.
+
+  톰캣같은걸 서블릿 컨테이너라고 한다.
+    -> 우리가 만든 서블릿이 컨테이너 안에 들어있다.
+    -> 객체가 있는지 여부 판단후 객체 생성, 있으면 특정 메소드 실행
+    -> 처음 요청이 들어오면 객체를 만들고 그 뒤로는 안만드는것
+    -> 컨테이너가 없으면 계속 만들고 실행하고를 반복하겠지
+    -> 서블릿에서 DB랑 연결할수도있음
+    -> 스레드로 실행됨. (여러 스레드가 동시에 실행이 가능해 효율적으로 실행이 가능하고 여러 사용자의 접속이 가능해짐)
+
+라이프 사이클
+  서블렛 객체는 처음 요청이 들어왔을때 생성되고, 컨테이너가 없어지면 죽음
+  객체의 생성과 소멸을 라이프사이클이라고 한다.
+
+
+Java Resources 
+서블릿은 반드시 패키지가 있어야함!!
+서블릿 생성할땐 superclass로 반드시 httpservlet 클래스를 가져야함!(생성시 체크하면 편하다)
+
+WebContent
+  META-INF 는 잘 쓰지않음
+  WEB-INF web.xml과 lib, 파일등이 들어감
+    web.xml파일의 /welcomfilelist 아래로 서블릿에 관한 내용 들어감
+      <servlet>
+  	<servlet-name>서블릿의 이름</servlet-name>
+  	<servlet-class>서블릿의 패키지부터 시작해서 클래스 이름</servlet-class>
+      </servlet>
+  
+      <servlet-mapping>
+  	<servlet-name>위의 서블릿중에 사용할 서블릿이름</servlet-name>
+  	<url-pattern>사용자가 이 url을 쓰면 클래스를 실행하겠다</url-pattern>
+      </servlet-mapping>
+
+서버 연결
+  아래쪽의 서버탭에서 링크클릭 -> 서버 설정 & 사용할 서블릿 add
+  서버탭의 연결된 서버 더블클릭 -> 포트를 겹치지않게 수정해주기
+
+서블릿의 요청 처리 메서드
+  doGet
+    get요청만 처리
+
+  doPost
+    post요청만 처리
+
+  service
+    모든 요청을 처리
+
+init() : 초기화. 처음 생성시 딱 한번만, 공통된 초기화 작업 처리 (모든 클라이언트에서 한번)
+service : get, post등의 요청처리 (요청시마다 실행)
+죽기직전에 destory() 딱 한번호출됨. 최종작업. DB를 닫는다거나 하는 작업을 함
+
+http://localhost:9090/JkWeb/now
+  현재시간 출력하는 서블릿 작성
+  서블릿명 : NowServlet
+    init
+    doGet
+    destroy 세개 메소드 구현
+  출력결과 : 11:27:00
+
+실제로 배포하기 위해 해야할 작업
+  notepad++ 다운
+  C:\Users\컴퓨터실23\Downloads\apache-tomcat-9.0.35\apache-tomcat-9.0.35\conf 에서 server.xml
+  -> Connector port를 9090으로 변경 -> tomcat 실행 (startup) -> 서버 실행됨
+
+Export한 WAR파일을 tomcat webapps 아래에 두면 자동으로 import됨!
+  -> 파일 다시 배포하면 destroy됐다가 다시 init됨(콘솔에서 확인가능)
+
+
+html
+  html	html임을 알려주는 태그
+  head	메타정보 명시
+  title	홈페이지 제목
+  body	실제 내용
+
+  기본 태그
+    <p> 	문단 설정
+    <br> 	줄바꿈
+
+405 허용되지않은 메소드	요청된 메소드가 없을때 나옴(POST요청을 했는데 POST에 대한 메소드(doPost같은거)가 없으면 뜸)
+
+데이터를 넘기는 방식
+GET
+  get뒤에 붙은 url에 요청이 다 들어있는 경우
+  url을 보면 무슨 요청인지 다 아는 경우
+  구글 검색같은게 get방식으로 됨.
+  검색엔진이 쉽게 찾을수있다는 장점이 있음
+
+POST
+  요청구조가 있을때 url정보, 요청 헤더 정보, 메시지 바디중 메세지 body안에 데이터 정보가 들어있음
+  post로 가는게 나음
+  로그인같은걸 post방식으로 씀 (id, passwd가 url에 나오지 않으니까)
+
+JDBC와 연결
+  Oracle SQL developer 다운로드 -> Windows 64-bit with JDK 8 included다운로드 -> sqldeveloper -> import 안하기 -> 접속+ -> 계정 연결하기
+  cntl + enter -> 질의 실행
+  init시 Class.forName("oracle.jdbc.driver.OracleDriver"); 수행하도록하기
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

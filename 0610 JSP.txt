@@ -1,0 +1,75 @@
+JSP
+  java server page
+  태그 중심적 동적 파일
+  html응답생성 -> 클라이언트로 보냄
+  서버에서 객체 생성후 사용, URL로서 클라이언트가 실행요청하는건 서블릿과 동일함
+  jsp는 서블릿을 거쳐서 서버로 돌아감.....?
+
+  html안에 jsp태그를 사용해 클라이언트 코드를 넣어준다.....? 뭐라고 하는지 안들림
+  
+JSP구성요소
+  대부분 HTML
+  1. static Content
+    HTML, XML, WML
+    변환이 아니고 그대로 나옴
+
+  2. dynamic Content
+    지시문 @page, @include, @taglib
+      지시 대상 : jsp 컨테이너
+      page	실행과 관련된 여러가지 내용을 지시함 이 페이지가 어떤 랭귀지고 어떻게 인코딩 되는지 등을 지시, import도 @page안에서 함
+      include	외부파일을 복사하도록 지시. 한 코드를 여러 파일로 나눌수있다는 장점이 있음 (코드관리 용이). 반복되는 코드를 다른 파일에 빼놨다가 include해서 사용가능
+      taglib	태그 라이브러리를 사용하도록 지시
+
+    코드요소 선언, 스크립트릿, 표현식
+      선언 	<% 필드선언; 메서드 선언;%>	방식으로 선언함. init와 destroy는 이미 예약되어있음
+      스크립트릿	<% 자바코드; %>			자바코드를 똑같이 쓰는것 자바에서 쓰던걸 써야할때 사용
+      표현식	<%=단일값%>, <%=변수,메서드호출,계산식%>	특정위치에 문자열로 출력할때 사용
+    JSP 액션 : 
+    EL, JSTL
+    뭔가 변환이 되는 경우
+
+  3. 주석
+    태그 주석문
+    JSP 주석문
+
+한글 안깨지게 하는 법
+윈도우 -> 프레퍼런스 -> 웹 -> 인코딩 방식을 UTF-8로 바꿔주기
+
+JSP는 WebContent에서 작업? 코드를 생성해야함
+
+
+CMD창
+  CREATE USER yadoc IDENTIFIED BY Oracle11g
+  DEFAULT TABLESPACE USERS
+  TEMPORARY TABLESPACE TEMP
+  QUOTA UNLIMITED ON USERS;
+
+  CREATE ROLE yadoc_role;
+
+  GRANT CREATE SESSION,
+  CREATE TABLE,
+  CREATE VIEW,
+  CREATE SEQUENCE,
+  CREATE SYNONYM
+  TO yadoc_role;
+
+  GRANT yadoc_role TO yadoc;
+  
+  지우고 새로 만들기
+  DROP USER yadoc CASCADE;
+
+SQL developer
+  새접속(이름 yadoc, 사용자이름 yadoc, 비밀번호 Oracle11g)
+
+
+
+
+
+
+
+
+
+
+
+
+
