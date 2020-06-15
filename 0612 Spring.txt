@@ -1,0 +1,224 @@
+강의자료
+https://www.dropbox.com/sh/caris5c5em0yki3/AAANCuEdTyHcDDL--2Lx9_qya?dl=0
+springmvc.pptx
+
+MVC (model, view, controller)
+  하나의 요청을 처리하기위해 3가지 개념이 일을 분담하는 것
+  클라이언트가 요청하고 화면을 받는것같은데 사실은 컨트롤러가 요청을 받아서 model과 view에게 처리를 맡기고 view에서 화면을 클라이언트에게 보이는것
+  유지보수 등에서 장점
+
+  Model
+    데이터(객체), 컨텐츠
+    화면에 보여줄 정보
+
+  View
+    화면, 클라이언트에게 보여줄 화면
+    화면단 구성 ==  view구성
+
+  
+  Controller
+    처리, 컨트롤러
+    들어온 요청을 처리해서 화면에 어떻게 보일지를 처리
+    패키지 반드시 필요, 상속 안됨, 요청 처리할 메소드 필요(이름은 자유)
+
+Spring
+  프레임워크(틀)의 한 종류
+  이미 만들어져있는 틀이라고 생각하면 됨.
+  MVC에 관련된 내용을 쉽게 사용할 수 있음
+    
+
+스프링 설치
+  이클립스 -> help -> 이클립스 마켓 -> sts 검색 -> Spring Tools 3 설치
+프로젝트 만들기
+  new maven project -> artifact id가 maven-archetype-webapp 인거 찾기
+  스프링은 maven 프로젝트
+  웹서버와 연결이 안돼서 에러가 나는 상태 -> 프로젝트 파일 우클릭 -> properties -> targeted runtimes -> 아파치 톰캣 선택해서 apply
+자바 클래스 세팅
+  properties -> java build path -> order&export에서 maven dependencies랑 JRE lib 체크
+프로젝트가 자꾸 에러가 뜰때 우클릭 -> maven -> update project
+
+MAVEN 구조
+src	-> main (메인 소스)	-> java (자바 클래스파일)
+				-> resources (자바외의 파일들)
+				-> webapp (jsp, html등이 들어감)	->jsp, html...
+	-> test (안씀, 지우면 안됨)
+	
+import 여러개는 , 사용해서 연결
+
+/ 는 들어오는 모든 요청을 의미 (all) -> 모든 요청을 받아들인다는 의미 -> controller
+  *.do, *.html 등도 쓰는데 /를 요즘 많이 씀 서블릿으로 들어오는 모든 요청을 받아들인다~ *.jsp는 안됨 (모든 jsp를 jsp로 받아들인다는 의미가 돼서 안됨... 이건 서블릿을 받아오는것임)
+
+우리가 쓰는 스프링버전은 Spring4.2.4
+
+GET
+  url 링크를 눌러서 들어가는 경우
+
+POST
+  주로 버튼을 눌러서 들어가는 경우
+
+자바 어노테이션 기반의 컨피규레이션 설정하겠다는 뜻
+  <context:annotation-config></context:annotation-config>
+    @Controller, @Component, Repository, @service 등 스프링 컴포넌트 등록할 패키지 (멀티 설정 가능)
+
+컨트롤러에선 requestMapping을 통해 해당 메서드로 찾아갈수있다.
+
+자바빈(Java beans)
+  여러개 값들을 하나의 객체로 모아놓는것
+  아래의 네 조건을 만족하는 클래스를 자바빈이라고 한다.
+    1. 클래스 이름은 대문자로 시작해야한다.
+    2. 필드는 소문자로 시작
+    3. 필드는 private, 클래스는 public으로 되어야한다.
+    4. getter, setter 메소드를 제공해야한다.
+
+Action 태그
+  자주 사용되는 자바 코드를 표준을 만들어 태그화 시킨것
+  jsp:useBean	javaBean을 가져오는 태그
+  jsp:getProperty	값을 받아오는 태그
+
+Scope
+  영역
+  jsp로 관리하는 영역
+  
+  page
+    한페이지 내에서만 적용되는 영역
+
+  request
+    한 화면에서 다른 화면으로 요청을 전달하는 경우
+
+  session
+    같은 사용자의 데이터를 공유
+
+  application
+    전체 애플리케이션을 전부 커버
+    모든 사용자들을 커버
+
+  
+-----------------------------------------0615------------------------------------------
+저 자바 모르는데요
+배워봐 재밌어
+안재밌는데요
+
+View resolver
+  뷰를 결정하는것
+  출력할 display화면을 가기 위해선 view resolver를 거쳐야하는데
+  controller에서 정한 setViewName에 prefix + viewName + suffix로 만들어진 경로의 view를 출력하는것
+
+View resolver 사용방법
+  1.  yadoc-servlet.xml -> java config 대체
+    xml은 에러체크같은게 힘들어서 java 파일로 대체하는것
+    대신 xml은 자바 문법을 몰라도 된다는 장점이 있음
+    java config는 annotation의 방식으로 작성됨
+    view 파일이 WEB-INF 안에 들어가야함, prefix, suffix 설정해서 view위치 판단
+    WEB-INF 폴더는 private폴더임(엊줘라고요 시발)
+
+  2. web.xml -> spring web initializer 대체
+    servlet, serlvet-mapping 을 대체한다.
+    서블릿 이름이 파일 이름하고 같아야했던 번거로움을 삭제
+      -> initializer는 class로 리턴해서 그런 번거로움이 없음
+
+  3. Controller에서 view의 이름에서 .jsp 삭제
+    config파일에서 suffix로 .jsp를 일괄로 넣어줬기때문에 파일 확장자를 작성할 필요가 없다.
+
+Spring
+  스프링 컨테이너 spring container
+  뭔가 담는걸 컨테이너라고 한다.
+  뭘 담냐면 bean(=객체, 인스턴스, 오브젝트, 객체가 컨테이너 안에 들어간걸 빈이라고 함.)
+  bean에게는 클래스가 필요.
+  컨테이너의 용량에 따라 bean이 들어가는 갯수가 달라짐(제한이 없다)(컨테이너에 빈이 많이 들어갈수록 좋음)
+  빈을 관리하기위해 사용되는것이 spring frame work
+  스프링 컨테이너 밖에 빈을 만들면 따로 관리해줘야하는데 스프링 안에 넣어두면 스프링에서 관리함
+  각 bean에는 객체가 생성될때 지어진 이름이 있고, config에서 viewResolver를 사용해서 그 이름으로 관리함
+  
+STS를 활용한 spring boot 앱작성
+  복잡한 애플리케이션의 환경설정을 쉽게하기위해 spring boot사용
+  관리할 컨테이너...?의 수를 줄여 간단하게 하려고 사용
+  
+spring 프로젝트 사용
+  뉴 -> 프로젝트 -> 스프링 부트 -> 스프링 스타터 프로젝트 
+  오류나면 pom.xml에서 properites 아래에 <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version> 추가
+  런은 전과 다르게 run as -> spring boot app
+
+Spring dependency injection (의존성 주입)
+  [  (bean)                     ]-> 스프링 컨테이너임
+  스프링 컨테이너 안에 클래스인 빈이 들어가있음
+  빈을 사용하고 싶은 user는 new를 통해 객체 생성 (여기까진 똑같음)
+
+  -> spring dependency는 유저가 객체를 만들지 않음
+  유저가 직접 커피를 사러가는게 아니라 배달을 시키는것같은 느낌
+  유저가 객체를 만들지 않고 스프링에서 bean을 주입..............?????????
+  컨테이너를 만들어놓고 빈이 그 안에 들어가있어야 의존성 주입 사용가능
+
+스프링부트는 src/main/resources에 설정파일을 만들음 
+  -> spring beab configuration file -> bean(버전 2.5체크)
+
+
+application context
+  스트링 컨테이너 자체를 애플리케이션 컨텍스트라고 함
+  
+Singleton
+  사용자가 여러명일때 객체가 필요할때마다 매번 만들지않고 하나의 객체를 만들고
+  필요한 곳에 기능만 전달하는것
+  스프링을 사용하면 자동으로 싱글톤을 사용하게된다..
+  객체는 처음 실행될때 만들어지고, 그뒤로는 생성된 그 객체를 getBean을 통해 가져와서 사용함.
+scope = "prototype" -> 클래스 실행시마다 객체 생성 필요. 아무것도 안주면 한번 생성된걸 계속 사용
+
+
+연관짓기
+  한 config 파일안에 있는 bean끼리 연관을 짓는 일
+  하나의 객체 안에 다른 객체의 정보가 들어감
+  1. 주입  
+    config 파일에서 ref = 다른객체 하면 둘이 합쳐짐(한쪽이 한쪽의 속성으로 들어감)
+    <property name="notebook" ref = "notebook"></property>
+
+  2. 자동 주입
+    주입할(속성으로 들어갈) 클래스쪽에 @Component("이름")
+    주입될(본체) 클래스쪽에 @Autowired, @Qualifier("이름")
+
+@Component -> @Autowired, @Qualifier(이름이 없을경우 생략가능)
+
+property 파일
+  src/main/resources 위치에 .properties 확장자 -> 안에 객체들의 정보를 적어줌
+  -> config파일에 context 추가하고 프로퍼티파일의 위치 명시
+  <context:property-placeholder location = "classpath:app.properties"/>
+  -> 각 클래스에서 @Value 이용해 연결 @Value("${volunteer.vid}")
+  이렇게하면 또 싱글톤 방식으로 처음 시작할때 생성됨
+
+INotebook -> 인터페이스
+  Notebook
+  Notebook2  -> 같은 인터페이스를 공유하는 객체?
+  INotebook 인터페이스를 사용하면 notebook 1과 2로의 변형이 자유로움
+
+포트 변경
+  src/main/resuorces -> application.properties 에서 server.port = 포트번호 해주기
+  application.properties
+    ->spring은 기본적으로 auto configuration이지만 수동으로 설정할 경우 application.properties에서 설정해주는것임
+
+tomcat jasper 설치 -> 9.0.35 설치 (pom.xml에 설치 dependency 복붙)
+
+EL
+  표현언어 ${} 이런거...........뭔소린지 몰겠다
+  걍 <%=request.getAttribate("height")%> 들어갈 자리만 ${height} 로 바꾸는거.....?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
