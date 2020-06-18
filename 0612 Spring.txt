@@ -198,13 +198,115 @@ tomcat jasper 설치 -> 9.0.35 설치 (pom.xml에 설치 dependency 복붙)
 EL
   표현언어 ${} 이런거...........뭔소린지 몰겠다
   걍 <%=request.getAttribate("height")%> 들어갈 자리만 ${height} 로 바꾸는거.....?
+  getter의 대용임
+
+  ${bmi.height}
+    -> bmi는 자바빈
+    -> 클래스 : 이름은 대문자로 시작, public
+    -> 필드 : 이름은 소문자로 시작, private
+    -> getter, setter필요( 필드를 get, set을 이용해서 접근)
+    -> EL에서는 private 필드여도 그냥 .을 통한(?) 접근이 가능해짐
+
+Controller에 포함시키지 않을땐 webapp아래에 jsp파일을 두고(그럼 주소 칠때 localhost:9090/index.jsp처럼 확장자까지 넣어서 들어가야함) controller에 포함시킬땐 설정했던 폴더 아래에 jsp파일들을 넣어놔야함!
+  -> controller에 포함시키고 바깥에도 두면 .jsp쳐도 들어가지고 안쳐도 들어가짐^^ 신기(파일 두개)
+
+Mybatis
+  spring하고 친한애...
+  ORM (객체 - 테이블 매핑) (object relation mapping)
+  jdbc를 좀더 편하게 하기위해 만든것
+  xml을 사용해서 mapping한다는 특징이 있음
+  DB하고 자바를 연결해줌
+
+MyBatis
+Oracle JDBC Driver
+
+  다운받기
+    mvnrepository -> mybatis -> 최신버전 다운로드 (디펜던시에 추가)
+    mvnrepository -> ojdbc -> ojdbc8 다운
+
+  구성요소
+    우리는 설정파일(뭐를 실행할지)이랑 매핑파일(뭐랑 연결할지)만 만들면됨
+
+  Mybatis 설정파일 만들기
+    이름은 자유지만 mybatis-config.xml같은걸로 많이 만들음
+    위치는 src/main/resource아래 xml파일로
+  mapper 파일도 동일한 방식으로 만들어준다
+
+JSTL
+  jsp tag library
+  mvnrepository -> jstl(javax.servlet>jstl)(최신버전) -> pom.xml 디펜던시에 추가
+  <%@ tablib uri = "태그정의tlb위치 / 태그 url" prefix="태그접두사"%>
+
+  forEach
+    c:forEach 라고 써서 사용
+    var 생성, 출력등을 반복.. 반복문인듯?
+
+로그 남기기
+  slf4j의 logger
+  Logger logger = LoggerFactory.getLogger(StudentController.class);
+    loggerFactory를 사용해서 로그를 남길 클래스를 넣어주기?
+
+  trace
+    어디까지 왔는지 추적
+
+  debug
+    뭐가 발생했는지 msg
+
+  info
+    제일 간단하게 msg를 쓰는 방식인듯????
+    간단한 정보.........    
+    logger.info(로그찍을 string);
+
+  warn
+    경고.. 어떤경우에 에러가 발생했다
+
+  error
+    로그인이 안됐다던지 그런 에러메세지가 나옴
+    여기가 제일 중요
+
+Refactoring
+  유지보수를 위해 코드를 바꾸는것?
 
 
+SqlSessionFactory
+  스레드 세이프
+  스레드의 안전
+  웹같은 환경에서 여러 사용자가 이용할때 안전하도록 하는것?
+  하나 만들어놓고 공유 가능(싱글톤패턴)
 
+SqlSession
+  스레드 세이프X
+  이건 공유해서 쓰면 안됨. 매번 생성해야함(프로토 타입이어야함)
+  sql 쿼리가 들어올때마다 새로 만드????????
+  
+$와 #의 차이
+  mybatis의 경우
+  #을 쓰는게 낫다
+  ${code}
+    1:1 매칭
+    파라미터로 들어오는 그대로 적용됨
+    스트링을 쓰고싶으면 '${grade}' 이런식으로 써야함
+    grade는 "ㅇㅇㅇ"가 아니고 ㅇㅇㅇ라고 들어와서.....
+    $는 스트링으로 들어오는게 아니고 들어온 그대로써짐
+    테이블명이나 컬럼명을 파라미터로 전달할때 사용. #{}는 자동으로 ''가 붙음
 
+  #{code}
+    string으로 들어와 타입에 따라 변경됨(파라미터 형태로 변함)
+    aa라고 들어와도 문자열이 들어갈 자리면 'aa'로 변환됨
 
+컨트롤러가 여러개 있어도 되는거였군
 
-
+배포하기
+  1.pom
+    pom.xml에 finalName, dependency, 
+  2. application
+    application에 SpringBootServletInitializer 상속
+  3. clean install -> war
+    run as 에서 maven clean
+    run as -> maven install
+.  4. workspace의 target에 가면 배포할 프로그램 나옴 (war파일)
+    war파일을 tomcat / webapps 에 넣으면 배포 완료??
+    톰캣 실행하면 http://localhost:9090/배포 파일 이름/원하는 url? 쳐서 홈페이지 진입 가능
 
 
 
