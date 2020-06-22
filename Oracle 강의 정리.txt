@@ -1,0 +1,248 @@
+이상왕
+swlee@g-spec.co.kr
+010-5275-5887
+
+IT에 있는 한은 즐거워야한다!!!
+
+C드라이브에 COSMOS 파일 만들기
+
+우리가 지금 깔아놨던 oracle은 XE : express edition (평가본)
+실무에서는 enterprise version 깔음(우리 사양으로는 안됨)(SDD, 30기가이상 필요, i7이상 램8이상)
+
+Oracle developer -> + -> name : my-sys , 사용자이름: sys, 롤: sysdba, 비밀번호 yadoc -> 테스트(상태:성공) -> 접속
+
+my-sys 다른 사용자 -> hr ->사용자 편집 -> 부여된 롤 -> 모두기본값 클릭, 모두 관리자, 모든권한부여 -> 적용 -> 시스템권한 -> 모두관리자, 모든 권한 부여
+  hr사용자가 super user가 됨(거의 모든 권한을 받음)
+
+100명의 오라클 개발자중 15퍼가 오라클디벨로퍼, 40퍼가 오렌지, 30퍼가 토드 툴 사용
+라온SQL 추천
+
+라온sql 설치
+  Setup-raonsql64 클릭 > organization oj넣기 > 경로 c의 cosmos(한곳에 개발툴 모으기위함
+  기본창에서 Database XE, Username HR, password hr, connect as Normal, Ora Home XE
+  SQL창에 select * from tab;  -> cntl enter 하면 디벨로퍼랑 똑같은 방식으로 나오는데 좀더 보기 쉬움!
+
+실전에서는 테이블을 모아놓은 tablespace 사용, index space도 사용
+
+피지컬
+  물리적. hw에 가까운 실제 이름
+
+논리적 이름
+  사용자가 알기쉬운 이름
+
+CREATE TABLESPACE DW_TSD DATAFILE   -- DW업무의 Data를 집어넣을 테이블스페이스를 정의
+  'D:\TBS-XE\DW_TSD_02.DBF' SIZE 100M AUTOEXTEND ON NEXT 10M MAXSIZE 5120M,
+        -> 만들 경로
+  'D:\TBS-XE\DW_TSD_01.DBF' SIZE 100M AUTOEXTEND ON NEXT 10M MAXSIZE 5120M
+	-> 처음에 100M짜리 파일을 만들고 그 뒤로 10m씩 추가, 최대 5기가까지 사용가능 (인 파일이 두개)
+LOGGING
+ONLINE
+EXTENT MANAGEMENT LOCAL AUTOALLOCATE
+BLOCKSIZE 8K
+SEGMENT SPACE MANAGEMENT AUTO
+FLASHBACK ON;
+
+my-sys -> hr -> 기본 테이블 스페이스 -> DW_TSD
+  디폴트에서 DW_TSD로 hr사용자가 쓸 테이블이 생성되는 위치를 바꿔줌
+  사적인 테이블 스페이스 private table space
+    오라클이 권고한 테이블스페이스가 아님!
+    users, sys-dba쓰는게 권고되긴하는데 실제로는 스페이스가 작아서 별도의 폴더를 정해 사용하는것
+    data가 들어갈곳, index가 들어갈곳 나눠줌
+      data -> (DW_TSD) 속도보단 정확성을 중요시함, 사이즈가 큼
+      index -> (DW_TSI) 사이즈는 작아도 괜찮은데 속도가 빨라야함(검색속도가 빠르려고 index를 사용하기 때문)
+             -> 일반적으론 SSD에 두는게 좋음.(빨라야하니까!)
+      작은 hw를 가지고 효율적으로 사용 가능 (관리는 모아두는게 편하긴함)
+
+스키마 브라우저(Schema browser)
+  오라클에서 테이블의 구조, 각종 자료구조를 확인할 수 있는 브라우저
+  어떤 작업을 하든 작업이 끝난 최종 상태를 스키마 브라우저가 있음
+  오라클 스키마 브라우저에는 최신정보가 항상 담겨있다
+  스키마 브라우저를 볼때는 항상 새로고침하고 봐야한다
+
+실제 작업하는 부분하고 모니터링하는 부분을 나눠두는게 좋음
+
+골든
+  가볍고 빠름
+라온sql
+  기능많고 무거움
+
+Explain plan
+  sql쿼리가 오라클이 수행할때 어떤 순서로 실행되는지 보는 곳
+
+실행계획 
+  오라클의 자료사전에 있는 플랜을 참조하겠다
+    -> VIEW -> Toad option -> ORACLE -> GENERAL -> EXPLAIN PLAN에서 스키마: SYS, TABLE: PLAN_TABLE$
+  
+
+(사견을 전제로 한) 오라클의 특징
+  oracle = 관계형 데이터베이스
+  1. Non DBA DBMS
+    - Self managed DB (스스로 운영할수있는 DB)
+    - DBA가 필요없는 DB (DBA가 없어도 잘돌아가는)
+    - DBA의 간섭을 최소화시켜도 알아서 스스로 움직이고 관리될수있는 DB
+
+  2. 관계형(relational) DB
+    - data -가로축 (record, row)
+             - 세로축 (column)
+    에 표시
+    - 서로 연관된 자료를 join으로 연결하여 표시
+    Excellike View(카드형 데이터베이스)
+      엑셀형태의 모양으로 관찰 가능(카드형태, 가로축 레코드 세로축 컬럼형태)
+      조인을 통해 원하는 데이터를 연결해서 표시
+
+  3. Bigdata (?)
+    아직 oracle은 빅데이터를 다루기에는 완벽하지 않다
+    2% 부족한 DB
+
+  4. but 이러한 결점에도 불구하고  꾸준히 점진적으로 발전하는 DB
+    
+RBO
+  rule base optimizer
+  오라클이 9i까지 쓰던 방식
+  데이터를 hdd에 넣고 풀스캔을 이용해 데이터를 찾는 방식
+
+CBO
+  cost base optimizer
+  cost를 가장 중심으로 해, cost를 줄이는 방식으로 작동하는것
+  cost는 낮을수록 좋다.
+  상대적으로 cost가 낮은쪽으로 유도함
+
+explain plan 설정방법
+  alter table toad_plan_table
+  modify (statement_id VARCHAR2(45));
+
+  alter table toad_plan_sql
+  modify (statement_id VARCHAR2(45));
+  -> 이 두 문장 각각 실행
+
+  -> plan 만들 쿼리문 선택해서 explain plan버튼 클릭
+  -> 뭐 경고창?뜨면 체크박스 전부해제
+  -> 다시 쿼리문 선택해서 explain plan버튼 클릭
+
+플랜 볼때 봐야할것
+  1. cardinality
+    결과로 나올 데이터의 예상 갯수
+    예상이랑 실제로 나온 값이랑 다를수도 있음
+
+  2. cost
+    실제로는 cost가 0인 쿼리는 존재하지않음(그럼 아무것도 하지 않은것)
+      0인 쿼리는 없고 1이최소
+    코스트는 정수값임
+
+In memory
+  RAM 중심의 DB
+
+  Columina
+    colum + utopia
+    컬럼이 유토피아가 되는 세상
+    레코드 중심이 아니고(hdd에서 가져올때는 필요한 레코드만 가져와서 컬럼단위로 자름)
+    컬럼중심으로 데이터를 사용  
+
+Saas / Paas
+  주문자 지정방식 (?)
+  
+과거는 전산을 내부에 다 갖고있었는데 최근에는 DB관리같은건 오라클이 해줄테니 너네는 너네 할수있는거 해라.....
+
+블럭의 집합체를 RDB 테이블 전체가 한데 뭉쳐있음
+현재 : 링크에 의해 물리적으로는 떨어져있고 논리적으로는 붙어있음(분산처리 염두)
+
+셀프조인 걸때는 반드시 부모 = 자식 형태로 조회를 해야함
+
+------------------------------0622----------------------------
+
+엑셀파일의 두 형태
+  1. .csv
+    text파일
+    메모장에서도 열수있음
+
+  2. .xls, .xlsx
+    binary파일
+    정확히 엑셀에서만 열림
+
+
+.csv의 구성
+  field delimiter : 컬럼의 끝 표시자
+  record delimiter : 레코드 끝 표시자 CR == '\c'	LF == '\n'
+  field qualifer : 필드 구분자 '필드'
+
+  -> '10101','홍길동','1'CRLF 으로 한 레코드가 들어있는것
+
+delect existing data : 기존 있는 데이터 삭제해라
+ignore first line in file : 첫줄 무시해라 -> 컬럼이름 들어있는 경우 무시
+
+자료사전 생성
+  데이터 analyze -> schemas and database -> gater all, all
+
+template (=caching, cache memory)
+  미리 형틀을 만들어놓고 그 형틀에 내용을 붓고 빼내는것
+  처음 만들때는 속도가 오래걸리지만 그 이후로는 작업속도가 빨라짐
+  오라클도 iterator를 사용해 반복작업에서의 업무 효율을 높임
+
+hash
+  오라클이 작업을 동시에 처리하는 방법.
+  single job & multi block access
+  block : 오라클이 작업을 처리하는 기본단위
+  job은 하나인데 데이터는 멀티 블록을 접근해서 가지고옴
+   cpu는 하나 ->시 분할 처리 사용
+
+질의문을 작성시 고민할 것
+  1. 썰어먹기 = 피자한판
+    divide and conquer (분할정복)
+    피자 한판을 통으로 두면 먹을수있는 사람이 없지만 썰어놓고 한조각씩 먹다보면 한판을 먹을수있다! (머래,,,
+    쿼리를 짠다는것은 오라클에게 문제를 해결해달라고 요청하는것!
+      -> 문제와 문제를 떼어내야 해결이 가능!
+
+  2. task(짐) : 나 -> 오라클 (짐을 전가)
+    태스크를 내가 해결할 것에서 오라클이 해결할수있도록 전가해라
+    나보다 오라클이 능력있으니 내가 주관하는것보다 오라클이 문제를 주관하는것이 나음
+    오라클이 총책임을 지게함
+    내가 해결할수있는 일이 있나 보고 밥상은 내가 차리는데 기본밥상만 내가 차리고 반찬을 어디둘지는 오라클이 결정하게함.
+    나는 해결자x 관찰자 입장에서 오라클이 문제를 어떻게 해결하나 관찰 -> 오라클이 해결 못하는 일은 없애고 오라클이 잘 해결하는 사례를 수집해서 그런 일을 주도록 함
+    잘된것은 극대화시키고 못된것은 미리 버려버린다!!
+    오라클이 싫어하는건 미리 제외하고 오라클이 좋아하는 일(반복작업)은 극대화
+
+  3. well(잘)
+    몇개월 짜다보면 알아서 오라클이 좋아하는 쿼리를 짜게됨!
+    질의문을 짤때 오라클에게 괜찮은 쿼리인지 물어봐야한다(플랜을 보면서 짜야한다)
+
+
+사람 -> 컴퓨터
+  1. 있는데 -> 없는것 (transparent) 투명 
+    oracle_base : 오라클 깔려있는곳 (C:\oraclexe\app\oracle)
+    oracle_home : (C:\oraclexe\app\oracle\product\11.2.0\server)
+    tns정보 : (C:\oraclexe\app\oracle\product\11.2.0\server\network\ADMIN)
+      tnsnames.ora에 tns 정보가 담겨있음
+      transparent network substrate (투명하게 망을 관통하다..)(실제로는 방화벽이 있지만 oracle에 다다를수있는 경로)
+      sid (DB이름)이 중요함 (우리는 평가본이라 XE) (instance와 session의 sid가 다름....?)
+
+
+IO channel : 컴퓨터가 알아듣는건 cpu밖에 없고 그 외 주변장치들과 데이터를 주고받는것
+Oracle의 IO는 육안 시스템과 소통하기위해 프로그램을 짜는것..
+
+
+BIOS : basic io system (os커널과 io채널을 합친것)
+.ora : 오라클이 만든 확장자
+
+B*tree :
+  인덱스는 더블 링크드 리스트로 되어있음
+  오라클의 인덱스는 일반적으로 B*tree로 구성되어있다.
+  루트노드 + 중간노드 + 단말노드 (셋을 합쳐 rowID를 이룸 18bit) 형태로 모든 데이터의 표현이 가능해진다.
+  해당 노드보다 큰 값은 무조건 우측 아래에 위치, 작은값은 왼쪽에 위치
+  데이터(레코드)가 입력될때마다 인덱스 트리는 재구성된다. : insert time이 오래걸리는 원인이 된다.(insert가 오래걸려도 select가 빨라지는 장점)
+  대용량 데이터를 집어넣을때 오른쪽 쏠림현상이 생기는 단점이 있음 -> 대안으로 파티션 사용
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
