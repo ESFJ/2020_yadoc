@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+	#formArea{
+		width : 300px;
+		heigth : 150px;
+		margin : auto;
+		border : 1px solid red;
+		text-align : center;
+	}
+</style>
+</head>
+<body>
+<!-- name= 오정원 -->
+<section id = "formArea">	<!-- section 속이 한 박스로 묶임 style에서 하나로 묶을땐 #섹션이름 해주고 스타일 지정하면 됨-->
+<form action="formGet" method = "POST">
+	<label for = "name">이름 : </label>
+	<input type = "text" name = "name" id = "name"/><br> <!-- for 형식에 들어가는 값은 id값. name의 전해지는 내용 속성값이 parameter로 들어감 -->
+	<input type = "submit" value = "전송">
+</form>
+</section>
+</body>
+</html>

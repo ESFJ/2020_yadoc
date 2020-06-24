@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="formPost" method = "POST">
+		비밀번호 : <input type = "password" name = "passwd" id = "password" required="required" placeholder="비밀번호"/><br>
+		<!-- 꼭 설정해야하는 경우 required 입력안하면 submit안됨 -->
+		<!-- placeholder 무슨 값을 입력해야하는지 가이드라인 들어감 -->
+		나이 : <input type = "number" name = "age" id = "age"
+		min="1" max="100"/><br>
+		온도 : <input type = "range" name = "temparature" id = "temparature" min="20" max="200"/><br>
+		이메일 : <input type = "email" name = "email" id = "email"/><br> <!-- 이메일형식이 아니면 submit이 안됨 -->
+		홈페이지 : <input type = "url" name = "url" id = "url"/><br> <!-- 얘도 url 형태 아니면 submit안됨 -->
+		생년월일 : <input type = "date" name = "birthday" id = "birthday"/><br>
+		색상 : <input type = "color" name = "color" id = "color"/><br>
+		메모 : <textarea rows = "20" cols = "40" name = "memo" id = "memo"/></textarea><br>
+		직업 선택 :
+		<select name = "job" id = "job">
+			<option>스타일리스트</option>
+			<option>KPop</option>
+			<option>트로트의 신</option>
+			<option>개발자</option>
+			<option>부자</option>
+		</select><br>
+		취미 :
+		<input type = "text" name = "hobby" id = "hobby"
+		list = "hobbyList"/>
+		<datalist id = "hobbyList">
+			<option>영화감상</option>
+			<option>코딩</option>
+			<option>공부</option>
+			<option>독서</option>
+			<option>수면</option>
+		</datalist><br>
+		<!-- 사용자에게 보이진 않지만 submit하면 개발자에게 들어오는 특정값 -->
+		<!-- name의 값은 bbs야 개발자쪽에서 일방적으로 값 넘김-->
+		<input type ="hidden" name = "boardType" value = "bbs"/>
+		성별 :
+		<!-- name이 같아야 한 그룹으로 인식됨 id는 달라야함-->
+		<!--모든 elements의 id는 다 달라야함-->
+		<!-- html을 패싱할때 모든 element들이 전부 객체로 만들어지는데 그 객체들을 id로 구분함 -->
+		<!-- checked해놓으면 처음 출력될때 해당 radio가 체크된 상태로 출력됨 -->
+		<input type = "radio" name = "gender" value = "M" id = "gender1" checked="checked"> 남자
+		<input type = "radio" name = "gender" value = "F" id = "gender2"> 여자
+		<input type = "submit" value = "전송">
+		<!-- action 누르면 해당 액션으로 보냄. action은 있는 내용을 전부 취소시킴-->
+		<input type = "reset" value = "취소"><br>
+		<input type = "image" src = "molang.jpg"> <!-- image 타입은 submit하고 같은 기능임 이미지만 들어갈뿐 -->
+	</form>
+</body>
+</html>
