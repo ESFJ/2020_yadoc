@@ -1,5 +1,6 @@
 package com.example.android02kotlin
 
+import android.os.Bundle
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -47,14 +48,31 @@ fun main() {
     var name:String = "kim"
     name = "lee" //변수니까 값 변경 가능
     println("name : $name")
-    
+
     var toDay:Date = Date() //java util의 date 그대로 사용 //kotlin은 new연산자 안씀
     println("toDay : $toDay")
     println("toDay : ${toDay.time}")
     println("System.currentTimeMillis() : ${System.currentTimeMillis()}")
     //simple date format도 사용 가능 (다 똑같은데 new만 안쓴다고 생각하면 편함)
     println(SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS").format(toDay))
+    
+    println("=====nullable : Type?")
+    var id = null
+    println("id : $id")
+    
+    //var pw:String = null  //-> null도 타입이기때문에 null상태로 출력은 안됨!!??
+    var pw:String? = null  //-> null상태를 허용해야 null이 들어가는게 가능
+    pw = "hi1234"
+    println("pw : $pw")
 
+    var kor:Int = 100
+    kor = 100
+    //kor = null    //-> null을 허용하지 않았기때문에 error!
+    
+    //var outState:Bundle //null을 허용하지 않는 bundle타입
+    //outState = null //물론 에러
+    
+    var outState : Bundle?
 }
 
 // 함수밖에서 선언된 변수(const 사용)
