@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Android04member</string>
+    <string name="page_title">Main Page</string>
+    <string name="tv_title_list">List Page</string>
+    <string name="tv_title_info">Info Page</string>
+    <string name="num">NUM : </string>
+    <string name="id">ID : </string>
+    <string name="password">PW : </string>
+    <string name="name">Name : </string>
+    <string name="tel">Tel : </string>
+    <string name="send">Send</string>
+    <string name="update">Update</string>
+    <string name="delete">Delete</string>
+</resources>
