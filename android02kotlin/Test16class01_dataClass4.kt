@@ -21,7 +21,6 @@ fun main() {
     println(name)
     println(age)
 
-
 }
 
 data class AAA(val name:String="admin", val age:Int=0)
