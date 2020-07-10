@@ -1,0 +1,885 @@
+﻿양성호
+yangssem88
+
+코틀린+안드로이드
+코틀린의 기반은 자바 -> 자바 라이브러리가 있어야 사용가능(상호호환성있음)
+한국어:서울말=자바:코틀린 이런 느낌 (다른 랭귀지는 일본어 중국어)
+
+안드로이드 스튜디오 설치
+  https://developer.android.com/ -> 안드로이드스튜디오
+  
+
+안드로이드 스튜디오
+  Gradle(빌드도구) 기반
+  AVD : 애뮬레이터 줄임말..
+    
+  웹어플리케이션 하나당 하나의 툴이 생김
+    manifests : 어플의 설정값
+    java(kotlin) : 자바코드 / 자바, 코틀린중에 개발가능
+    res : 리소스. 자바소스를 제외한 다른 개발 파일, 이미지, 등 (drawable이미지, map:아이콘(해상도별로따로필요), layout:화면하나당 하나의 레이아웃 -> xml, menu:어플리케이션 내부 메뉴들, values:값. 어플리케이션 내부에서 쓸 값들(String, array등), 그외 스타일같은건 또 따로 파일을 만들어서 관리함)
+  drawable : 보통 큰 이미지
+    xml에서 접근
+      @drawable/~
+    java
+      r안에 static으로 들어있어서 r.drawable.~~
+  레이아웃 : 하나의 화면에 하나 이상의 레이아웃이 필요
+
+  values
+    @string/appname
+    R.string.appname
+  
+
+
+  버튼을 누르면 나오는 화면 하나하나를 전부 액티비티라고 함.
+  
+어플리케이션의 기본요소
+<Application>
+  각 요소마다 필요한 요소를 상속받아야함 (Activity를 상속받은 myActivity이런것)
+  1. 화면
+    <Activity>
+    class로 되어있고, 화면 구성에 특화됨. 전부 activity를 상속받음
+    화면을 좀더 화면답게 해주는것 frogment
+
+  2. 서비스
+    <Service>
+    화면이 아닌곳에서 움직이는 것들 (화면이 안떠도 돌아가는것)
+    마치 윈도우의 내pc->관리->서비스같은 그런것들
+    내가 실행하지않아도 알아서 실행되는 그런것들
+    화면과 관련없이 백단에서 프로그램이 러닝될수있도록 돌아가는것
+
+  3. 리시버
+    <Receiver>
+    특정한 메세지가 온걸 감지해서 내 어플이 약속되어진 채널을 열고있다가 받아서 특정한 쪽으로 전달해주는것
+    전달하려면 그 어플이 켜져있어야 메세지를 받고 뭔가 백단에서 살아있어야함
+    켜져있을땐 화면, 꺼져있을땐 백단하고 연결되어있음
+    
+  4. 제공자
+    <provider>
+    카톡, 라인 등을 보면 정보를 공개해야합니다 이런식으로 서버연동해야합니다 이런거
+    주소록은 콜이 처음 생성될때 만들어져있던 기본 어플리케이션있고, 카톡이 있으면 카톡이 전화번호부에 있는 주소록을 가져올때 -> 카톡은 거기있는걸 긁어오는 능력이 있고 주소록에는 내 주소록을 줄수있는 능력이 있음
+    권한에 대한 부분은 내가 허용하면 허용되는것
+    주소록입장에서는 내 주소록을 갖다쓸수있도록 허용하면 주소를 제공하는것 -> 그게 프로바이더(처음부터 누가 가져가고자 하면 제공할게~~ 하는 것이 프로바이더)
+ 
+Minimum SDK : 하드웨어말고 모바일에 돌아가는 OS의 버전
+
+Log 레벨
+ verbose -> debug -> info(가장많이) ->warn -> error
+
+코틀린의 특이 타입들
+  Unit : return값이 없다 (= void)
+  Nothing : exception 발생 타입 (비정상 종료시 사용)(일부러 발생시킴)
+  Any : 최상위 타입, 모든 타입을 아우르는 타입 (= Object)
+  코틀린은 아규먼트에 들어가는 순서가 타입명 변수명이 아니고 변수명 타입임
+  TypeName? : type이름에 물음표(?)가 붙으면 null을 허용한다는 얘기
+    (a int? 면 int타입의 a인데 a로 null이 들어올수있다는 얘기임)
+    (?가 안붙은 경우 null이 들어오면 에러남)
+
+
+000 0
+001 1
+010 2
+011 3	-> ~는 0->1, 1->0
+100 -4	-> ~3은 100 이라서 -4가 됩니다
+101 -3
+110 -2
+111 -1
+
+코틀린은 변수 선언할때 val / var 을 지정
+  var count = 10 
+  -> var count:Int = 10 (어차피 정수의 기본단위는 int라서 생략가능)
+  
+
+
+---------------------------------------0626---------------------------------
+
+소프트웨어의 개발 목적?
+  편해지기위해서~~~
+
+뭐만들까? -> 뭐만들자!(클라이언트의 요구사항) -> 그러려면 뭐도 해야하ㅗ 뭐도 해야하고 뭐도 해야해 -> 정보를 담을 대상 필요(변수에 담음) -> 어떻게 만들어야해????
+
+소프트웨어 개발
+
+  1. 웹
+    
+  2. 모바일 어플
+    
+  3. 데스크탑용 어플리케이션
+    
+  -> "요구사항"이 생김
+    요구사항(-> 속성, 기능으로 분류됨) 분석
+      속성 : 정보, 명사(->변수 var, 상수 val)처리
+      기능 : 사용법, 동사, 형용사(-> 함수 fun, method)
+
+  -> 여러개의 요구사항이 존재
+    요구사항들 객체화(-> class선언)
+  -> 정보들을 이렇게 처리하고싶어! (DB필요)
+
+  요구사항을 싹 적어서 요구사항을 분석하고 분류하는 연습을 하는것이 좋음 -> 다이어그램, 그림으로 도식화(class diagram) -> 그 후 설계대로 짜는것
+
+. -> 앞안에 뒤가 있다는 얘기 -> 점 좌측의 대상은 주소를 가지고있다는 의미
+
+
+App  -> 아이콘 터치 -> 앱실행
+앱실행의 라이프사이클
+  1. onCreate() 실행
+    첫 실행같이 아무것도 들어오지 않는 경우에도 실행이 되어야하기때문에 들어오는 파라미터에 null을 허용해야한다. (-> x : Bundle?) 필요함
+    
+    onStart()
+    onSavedInstanceState()
+      save된 인스턴스를 가져오는 함수 -> onCreate에서 가져올수도 있고 여기서 가져올수도있음
+    onResume()
+
+  2. 앱 사용 run
+
+    onPause()
+    onRestoreInstanceState(x:Bundle?)
+      화면이 뒤집어지거나 홈버튼이 발생할때 등
+      이전에 쓰던 값을 저장해야해서 그때만 쓰임
+      -> 값 세팅해주면 이때 세팅된 번들값이 onCreate시 들어갈수있음
+    onStop()
+      onStop() -> onStart()의 라이프사이클 가짐
+      홈버튼을 누를때같이 중간에 끝나는 경우 onStop을 호출함
+
+  3. shutDown()
+    onDestroy()호출
+    back버튼 누를때 실행(정상종료)
+    비정상종료시에도 실행됨
+      -> 우선순위에 따라 그 우선순위를 방해하는 메모리를 강종하는 기능이 있음
+    화면전환
+      -> portrate(세로화면), landscape(가로화면) 둘다 제공할지 말지에 따라서 세로<->가로 움직일때도 shutDown()->onCreate()을 돌리는것임
+      -> 화면이 디스트로이 됐다가 onCreate될때 그 전까지 쓰고있던 정보를 다시 넘겨줘야함
+      -> onCreate의 파라미터인 Bundle
+
+  -> 화면 page
+    activity필요
+    1~3까지는 액티비티의 라이프사이클 이라고 함
+
+when문
+  kotlin은 switch-case가 없다! when-arrow문 사용함
+  java의 switch과 유사
+  switch문과 달리 딱 해당되는 case만 실행되고 자동으로 break됨
+  ->(arrow연산자) : java의 case
+  when문도 if처럼 arrow의 가장 마지막문장을 반환한다
+  block사용 가능
+  when쪽의 괄호()를 뺄수있음 -> 그때는 if문처럼 사용됨
+  arrow쪽에서 함수사용, in+range, is, 다중...다중컴마?(1,2,3,4) 등 전부 사용가능
+ 
+range (..)
+  숫자의 범위등을 지정할때 사용
+  0..9 -> 0,1,2,3,4,5,6,7,8,9 해당 range사이의 값을 쭉 포함함(시작과 끝도 포함)
+  range는 작은수에서 큰수로만 가능
+    -> 큰수에서 작은수는 downTo 사용
+  그 전까지만 돌게하고싶을때 : until
+
+
+반복문
+  1. for문
+    for(변수 in 반복range)
+      for(i in 0..9) -> 0부터 9까지 총 10번 실행됨
+      for(i in 9 downTo 0) -> 9부터 0까지 총 10번 실행됨
+    
+    step을 주고싶은 경우 : step n을 주면 됨
+      for(i in 0..9 step 2) -> 0부터 9까지의 범위를 도는데 2씩 증가
+ 
+    배열의 인덱스처럼 사용하고 싶다.
+      [0],[1],......[배열의 사이즈 -1]
+      var size = 10
+      for(i in 0..size-1) print("$i ")
+      for(i in 0 until size) print("$i ") : 알아서 -1까지만 돌음
+
+    break, continue는 똑같이 사용가능
+    다중 for문도 똑같이 사용가능^^~~
+        와 아니네 각 for문의 변화식의 변수를 같게ㄷ줘도 괜찮음.... 근데 가독성의 문제가 있으니 따로 주는걸 권장
+
+    loop1@ ~~~break@loop1
+      이런식으로 label을 사용하면 break가 되었을때 label로 돌아간다...?
+      뭔지 몰겟다요
+
+  2. while
+    java의 while과 동일
+   do-while도 동일
+
+
+Scanner
+  스캐너 따로 안쓰고 바로 readline을 쓰는듯...? 굉장히 편하다
+  var x:String? = null
+  x = readLine()
+  을 하면 키보드 입력을 받아온다
+
+정규 표현식
+  내가 쓴 표현식이 정규표현식화 됨
+
+!!
+  이미 선언된 변수에 대해 절대 null을 허용하지 않음을 선언
+  
+array
+  자바와 거의 동일
+  
+forEach
+    void함수
+    forEach() 함수 사용법
+    for문의 반복문을 괄호{}안에 적어줌
+    예약되어진 변수 it(iterator, item, 요소)필요
+    datas.forEach { print("$it ") } -> for(i in datas) print($i) 와 동일
+
+arrayOf()
+  
+  arrayOfNull<type>(size)
+    size가 n인 array를 반환 -> 들어있는 값은 null
+
+Array
+  block과 lamdba식 사용
+  코틀린의 lamdba : {인자(argument) -> 반환식(return)}
+    {i -> i} : i로 들어온 값을 i로 반환하겠다
+
+View를 상속받은 수많은 오브젝트들이 위젯패키지에 있음
+  버튼(button)
+  리스트뷰(list view)
+    데이터들이 배열에 있음~!
+
+  이미지뷰(image view)
+  텍스트뷰(text view)
+    text가 string에 들어있음 -> Array<String>
+
+  에디트뷰(edit view)
+  ...
+
+---------------------------------------0629----------------------------------
+
+!! : non-null (null 사용x)
+? : null 허용
+
+newNames.sort()
+  오름차순으로 sort 
+  반환값 없음 (원본이 바뀌는것)
+  sorted 사용하면 결과를 반환
+
+
+Collection
+  1. List
+    변경가능한 list
+      - arrayListOf<type>() : ArrayList<type>()
+      - mutableList<type>() : MutableList<type>()
+
+    ArrayList도 index 존재
+    함수
+      - filter
+        - filterNotNull : null이 아닌 값만 추출 (지우는게 아님)
+        - filterIsInstance<type> : 해당 타입의 값만 추출
+      - sum
+      - min, max
+      - sort
+
+    읽기전용 List
+      - List
+      - 함수 추가, 삭제, 수정, sort은 안되고 나머지는 사용가능
+      - 원본이 읽기전용이어도 복제한 배열에 데이터 추가하는 함수는 사용가능 (plus, sorted) (원본에 영향X, 원본의 복제품)
+      - 연산자 오버로딩 (+=, -=등)은 var일때 가능
+
+  2. Set
+    중복허용X, 순서X
+    수정안되고, 삽입삭제만 가능
+    index가 없으니 수정개념이 없고, 삭제후 재입력하는 개념
+
+  3. Map
+    - 변경 가능한 map : hashMapOf, mutableMapOf >>> HashMap, MutableMap
+      <key type, value type> : key타입은 null을 허용하지 않는게 일반적(유니크해야함), key는 대부분 String 타입을 사용
+      Key to Value : 예약어 가능..? key value를 넣을때 to를 사용해 둘을 매핑함
+
+---------------------------------0630---------------------------------------------
+<함수>
+
+함수를 call한다는것 : 함수이름() 을 하는것
+함수를 call할때 값을 줄수도 있고(input) 함수입장에서 값을 반환할수도있음(output)
+인자값 : parameter로 줌
+반환 : return
+
+fun 함수이름(파라미터)
+    return 반환값
+
+함수를 정의하는 <define> 4가지 원리
+  1. fun fn():Unit 
+    들어온 값 없음 + 반환값 없음
+    argument X, return value X
+    실행만 하는것
+    
+  2. fn( argument ):Unit
+    들어온값 있음 + 반환값없음
+    중간에 그만하고싶을때 return을 할수는 있지만 기본적으로 반환값은 없음
+    set에서 주로 사용(setter) : 은닉된 값에대해 접근할때 많이 사용
+
+  3. fn(): returnType
+    반환되는 값은 하나뿐 (여러개를 주고싶으면 객체에 넣어서 줘야함)
+    get(getter), sum, sorted ..
+
+  4. fn( argument) : rT
+    값도 받고 리턴도 하는 경우
+    일반 로직에서 가장 많이 사용
+
+코틀린의 가장 큰 특징 : 
+  함수안에 함수를 정의할수있음!
+  최상위 클래스가 Any (오브젝트가 아님!!)
+  물론 오버로딩은 가능
+
+자바는 클래스 영역에만 함수를 만들게끔 만들어져있음
+  -> 함수내에서 함수 정의 불가능
+  -> 대신 함수안에 class는 정의 가능 (inner class)
+자바는 oop를  지향하기때문에 (최상위 클래스가 object)
+JS는 최상위 클래스가 function
+
+코틀린의 함수
+  fun 함수이름( 파라미터이름 : 파라미터 타입):리턴타입{}
+
+  간단한 코드의 경우 fun 함수이름():리턴타입 = 리턴문 으로도 작성 가능함
+    -> fun fn(x:Int, y:Int) = x+y 
+    -> fun fn(x:Int, y:Int):Int{
+          return x+y
+        } 와 같음
+    -> return type 생략하면 리턴되는 타입에 맞게 정해짐(생략가능)
+
+lambda
+  람다는 이름이 없는 함수 -> 할당으로 이름을 부여해줌
+  람다는 fun이라는 예약어를 사용해 만들지 않음!
+  {}로 함수를 만들고 
+  1. 데이터처럼 변수에 할당
+  -> var 변수이름:(parameterType)->returnType = { lambda 실행식 }
+  -> var fn = { Random.nextInt(10)}
+    -> 할당받은 변수는 함수변수가 되어 변수이름()으로 call 가능
+    -> 혹은 run을 이용해 call가능
+      -> run(할당받은변수이름)7
+
+  input 이 필요한 경우 -> (arrow)를 사용
+    parameter -> return식
+    var fn3 = {x:Int -> println("lambda fn3()... $x")}
+      ->  int x를 받아서 출력
+
+  ({람다식})(parameterValue) 을 이용해서 바로 람다식 생성 + 콜 가능
+    -> 함수가 데이터처럼 쓰인 경우
+
+
+  2. lambda함수를 다른 함수의 인자로 할당하는 경우
+    생략했던 :()-> 를 적어서 인자로 넣어줌
+    fun start(fn:()->Int){}
+    -> 아직 call되지 않은 함수가 fn으로 들어옴
+    파라미터로 들어온 함수가 필요한데 call은 함수 내에서 필요한 때에 사용하는 경우에 사용
+
+함수는 함수 안에 만들어도 되고 밖에 만들어도 된다.
+  대신 메인함수 밖에 만들어지면 패키지에서 공유됨
+함수 밖에 정의된 함수도 호출이 가능함
+
+고차함수 (= 일급함수)
+  High Order Function
+  1. 함수를 변수에 할당
+  2. 함수를 함수의 인자값으로 할당
+  3. 함수를 리턴문에 할당
+
+
+  3. lambda함수를 다른 함수의 리턴값으로 할당하는 경우
+    리턴타입으로 (parameterType)->returnType <이걸 그대로 넣어줌!
+    fun start1():()->Int{}
+
+<Class>
+
+ 1. DTO, VO
+    값을 전달하기위한 객체
+    data class className(data...)
+    속성, getter, setter, 생성자 로 이루어져있음
+    Object의 equeals(), hashCode(), toString() 함수도 오버라이딩해서 이용
+    VO객체는 자동으로 오버라이딩 되어있음*^^*
+
+  Data Class Component
+    data class에서 객체의 속성을 분리해 여러 변수에 직접 할당하는 방식
+    name과 age를 가져오고싶을때 그 둘을 저장하고 있는AAA를 불러오는 방식 -> 그 뒤로는 name과 age를 바로 변수로 쓸수있다.
+    var (name, age) = AAA("kim", 33) -> 이 이후로 name = "kim"으로 age = 33으로 사용가능
+     
+  2. Enum class
+    값을 상수화해서 가지고있는 객체
+    enum class className{ 값, 값, ...;} << 세미콜론 필수!!
+    data도 넣을수있음
+
+  3. Sealed class
+    enum class의 확장판
+    안에 클래스가 들어올수있음
+
+--------------------------------------------------0702---------------------------------------------
+class의 종류
+  data class, enum class, <<일반 class>>
+  모든 클래스는 동일 패키지에서 유니크해야함
+
+  접근제한자
+    public
+      아무곳이나 됨. 코틀린의 기본값
+    default
+      패키지내만 됨. 자바의 기본값
+    protected
+      상속관계만 됨
+    private
+      나만 됨
+      은닉화, 캡슐화에 사용됨
+
+  생성자와 클래스의 접근제한자가 생략되어있으면 public으로 들어간다.
+  클래스 이름옆에 constructor를 적어서 생성자를 줌	
+  생성자의 파라미터는 클래스의 프로퍼티 선언 및 초기화 목적
+  클래스의 전역변수 : 속성, 프로퍼티 (멤버 필드), val& var 둘다 사용가능
+    초기에 초기화하지 않으면 에러가 남 -> 생성자에 적으면 전역변수가 되어 사용가능
+  Kotlin은 OOP(object oriented) & FP(functional) programming
+  파일명과 클래스명을 동일하게 하는게 관리에 편함(자바처럼!)
+
+생성자 오버로딩
+  파라미터의 갯수, 타입, 순서가 다르면 여러 생성자를 정의할수있다.
+  전역변수의 초기화가 목적
+
+자바의 this() 생성자를 여기서는 constructor():this()이런 방식으로 써야함
+  constructor():this(0, "title"){}
+    ()생성자에서 인자 두개짜리 생성자를 이용해 초기화함
+    
+<inner class>
+  클래스안에 클래스를 넣는 경우
+  안에있는 클래스가 바깥 클래스를 생성하지 않고도 그 자원에 접근하고 싶을때 사용
+  내부 클래스에서 외부 클래스의 자원을 사용하려면 inner class 선언을 해야함
+  inner클래스의 접근은 Outer.Inner 를 통해 가능
+
+<로컬 내부 클래스>
+  함수안에 클래스를 정의하는 경우
+  로컬안의 클래스이기때문에 객체 생성을 클래스 정의 위에서는 생성 불가능
+  함수 내부의 로컬 변수를 클래스 내부에서 참조하고 싶은 경우 사용
+  final만 접근되는 자바와 달리 그냥 내부자원 전부 접근가능
+
+클래스의 자원을 사용하고자 할때
+  1. 객체 생성해서 사용
+  2. 객체 생성하지않고 사용
+    2-1) 내부 클래스
+    2-2) 상속 
+
+<상속>
+코틀린의 기본 클래스는 상속을 허용하지않음!(기본이 final인 늒ㅁ)
+open 키워드를 줘야 상속할수있음
+클래스이름 : 상속받을클래스의 생성자로 상속가능
+
+상속이 전제로 되었을때 사용되는 용어들
+  1. 다형성★
+    "상속이 전제"로 된 경우 슈퍼클래스 타입 객체 생성시 서브 클래스 생성자로 객체 생성 가능(업캐스팅)
+    대신 접근 가능한 자원은 슈퍼클래스 본인것만 가능
+    유지보수 / 설계의 편의를 위해 사용함
+
+  2. 메소드 재정의(오버라이딩)★
+    기본적으로 코틀린ㄴ은 속성과 기능도 재정의 허용하지 않는다!
+    슈퍼클래스의 속성에 open, 서브클래스의 속성에 override 키워드를 붙여줌(open - override)
+
+  3. 다중상속
+    코틀린에서 다중 상속을 지원한다
+    클래스는 하나만 상속, 인터페이스는 다중상속이 가능
+
+<Abstract>
+자바와 동일하게 abstract 키워드를 사용해 정의
+abstract는 상속을 전제로 하기때문에 open 키워드를 사용하지 않아도 상속과 오버라이드가 가능
+
+<Interface>
+자바와 동일하게 interface 키워드를 사용해 정의
+기본 전제가 상속을 지원, abstract
+인터페이스가 되면 생성자는 사용 불가 -> 상속시 괄호()안씀
+변수 초기화 불가 -> 선언만 가능하며 초기화는 상속받은 클래스에서 가능
+함수 정의부 블럭이 생략되면 무조건 추상함수, abstact, open 키워드 생략
+함수 정의를 했더라도 open안써도 무조건 재정의 가능
+
+대상 오브젝트가 TextView고 그 속성으로 text가 있을때 text를 세팅해주면 그 값이 화면에 나올때!
+  var t = TextView()
+  t.text = "hello" 하면 화면에 나오는거임
+  log.i(t.text) 하면 text가 로그에 찍히는거임.. 글쿤.. 어렵다..
+  근데 text가 꼭 거기에 정의가 있지 않을수도있음 : TextView가 View를 상속받았는데 text가 View에 있는 경우 t.text를 해도 text사용가능
+ 
+<접근제한자>
+1. private
+  같은 파일내에서 접근 가능
+
+2. public
+
+3. internal
+  어플리케이션 내부에 공유되는 전체 패키지에서 쓸수있음
+  컴파일이 같이 되는 장소에 있는 파일들 (동일 모듈)에서 공유
+  public과 비슷
+
+4. protected
+  패키지가 달라도 상속관계인 경우 접근 가능
+
+<Thread>
+안드로이드 환경에서 돌리려면 반드시 스레드 환경에서 실행해야함
+스레드
+  메인 루틴과 별도로 서브루틴이 진행되도록 하는것..
+  자바에서는 thread클래스와 runable interface를 가지고 스레드를 구현할수있음(코틀린에서도!)
+
+스레드 기법을 지원하는 오브젝트들
+Thread : Object
+Runnable : Interface
+
+1. Thread
+  Thread{ 스레드로 따로 돌리고싶은 실행구문 }.start()
+  스레드로 돌릴 대상이 그냥 구문일 경우
+  스레드를 상속받은 클래스를 돌리는 경우
+  Instance{}.start()로도 사용할수있는것임
+
+2. Thread(Runnable)
+  Thread(Runnable { 실행구문 }).start()
+    -> Runnable 블럭안에 넣어서 돌리는것도 가능
+  스레드로 돌릴 대상이 runnable을 상속받은 경우
+  러너블 타입은 이미 그 안에 실ㄹ행문이 들어있음(오버라이드 되어있음)
+  -> 러너블 타입을 그냥 Thread안에 넣어서 돌릴수있는것임
+  -> Thread( runnable type object ).start() 인것임
+
+3. Runnable(Runnable).run{}
+4. coroutines을 이용
+  bundle.gradle 아래 라이브러리 명세 추가 (디펜던시 추가)
+  implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:0.27.0-eap13'
+  start를 해주지 않아도 됨
+  thread를 만나면 알아서 스레드로 돌아감 (외부 라이브러리 사용)
+  start = true : 스레드를 즉시 실행하라는 옵션
+  priority는 스레드의 우선순위, name은 스레드에게 이름을 부여(스레드 관리가 가능)
+  
+
+Run()은 스레드 실ㄹ행에서 가장 중요한 메소드임!
+
+---------------------------------------0703------------------------------------------
+
+안드로이드의 가장 아래에는 Linux로 이루어져있음 (운영체제 가장 밑은 리눅스고 그 위에 안드로이드 OS가 들어가있음)
+안드로이드는 리눅스 위에 탑재된 OS라고 할수있음
+기능이 들어있는 꾸러미 : 어플리케이션
+그래서 안드로이드를 뜯어보면 Linux단까지 만질수있음.. 단, 거의 없고 대부분은 안드로이드단에서 해결
+
+0,1로 이루어진 데이터를 분석해서 화면으로 보여줌
+하나의 랭킹 시스템을 보일때
+  0. 랭킹 띄워줘!	->메인 루틴
+
+       서	APP	1. 요청 : URL을 통해 네트워크로 감 (IP도메인을 통함)
+       브	SERVER	2. 서버에서 처리
+       루	SERVER	3. 응답 (서버가 응답함)
+       틴	APP	4. 응답을 분석
+  -> 랭킹 띄워달라는 요청을 하고 그 요청은 서브루틴으로 돌림
+
+
+
+<ANDROID>
+하나의 어플리케이션당 하나의 프로젝트 필요
+
+  기본적으로 화면은 뷰 객체를 보여주기 위함임
+  View를 상속
+  1. 화면 구성 : 레이아웃
+    전체 화면을 보여주는 빌더가 constraint로 구성됨(기본 베이스)(root)
+    1-1. 레이아웃에 위젯을 던져 넣는 경우
+    1-2. 레이아웃 안에 특정한 레이아웃(선형, 상대(기준을 두고 그 기준에서 얼마나 떨어지나 설정, 겹치기 가능), 절대(해상도에 민감해서 안씀), 테이블형식(행렬구성), 그리드뷰, 그리드레이아웃, 프레임 레이아웃(show, visibility를 사용, 겹치기 가능))에 동작(위젯)을 집어넣는 경우
+      dp : view size
+      sp : text size
+
+  2. 동작 : 위젯
+    1. xml문서에서 설정
+      res/values/string.xml에서 변수이름 설정 후, activity_main에서 그 변수이름 사용
+    2. MainActivity의 onCreate에서 설정하는 경우
+      원하는 위젯의 id를 바로 onCreate에서 사용할수있음! id.widgetType = 원하는값
+
+    1. 버튼
+    2. 텍스트뷰
+    3. 에디트 텍스트
+    4. 이미지 뷰
+
+    3. 이벤트
+      event로 주면 어떤 위젯이든 이벤트를 발생시킬수있음
+      - setOnClickListener : 한번 터치
+      - setOnItemClick~ : 여러 목록중 하나의 아이템을 선택하는 경우
+      - setOnSelected~ : 여러가지중 셀렉트(선택)하는 경우
+      - setOnCheckedChange~ : 체크박스처럼 체크됐다 안됐다 하는거 / onoff스위치
+
+res안에는 _를 제외한 특수문자, 대문자 사용 불가
+res에 레이아웃을 만든다는건 레이아웃안에 특정한 레이아웃을 주겠다!는 의미
+
+------------------------------------------0706--------------------------------------------
+배열 데이터
+  데이터를 배열로 보이기
+  class에서 배열을 만들어서 view로 던져주는것
+  layout_weigth
+    : layout 크기를 match_parent, wrap_parent로 했을때, weight를 따라 layout상에서얼마나 차지할지를 결정함(%, 0~1)
+    : weight가 있는것과 없는것이 싸우면 없는게 우선으로 자기 자리를 찾아감
+    : weight가 없을땐 들어온 순서대로 들어오는데 늦게 들어온 레이아웃은 먼저 들어온 것을 이길수없다
+ ListView
+GridView
+
+웹서버에서 데이터 가져오기 / 클라우드에서 데이터 가져오기 -> 어떤 객체를 쓸지가 달려온다!
+
+android Context 객체는 Activity가 상속받고있음!
+
+list의 데이터를 가지고올때 adapter를 사용함
+  android Context <- Activity <- AppCompatActivity <- ListPageActivity
+  resource = ResID type의 int // R.~ 으로 접근 가능한 것을 넣어라
+  우리가 가지고있는건 R이고 안드로이드가 가지고있는건(res에 있는게 아니고 안드로이드단에서 이미 가지고있던 그거...) android.R.~ 으로 접근
+    listView.adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, datas)
+
+padding 기본 공간이 있고 원래 내 아이템?의 크기가 있으면 기본공간에서 아이템이 떨어지는 그 공간
+margin 기본공간을 포함해서 화면에서 얼마나 떨어졌나
+
+baseAdpter를 상속받아서 어댑터를 만들어주면 내가 원하는대로 화면을 만들수있음 -> textView 넣을 자리에 이미지뷰 넣으면 이미지 넣을수있고 그럼
+
+context
+
+액티비티에서 다른 액티비티로 넘어갈때
+  1. Intent객체
+    버튼을 클릭하면 ListPageActivity 스타트
+      val intent = Intent(해당 intent를 적용할 화면(주로 현재 페이지에 적용하기때문에 this사용), 가고자하는 페이지를 클래스로 변환)
+      startActivity(intent)
+    한 액티비티에서 다른 액티비티로 넘어갈때 intent객체에 넘길 파라미터를 세팅해주면 넘어간 액티비티에서 받을수있음(거의 모든 타입을 지원)
+  putExtra~ 함수 사용
+
+  2. Bundle로 받기
+
+  3. Object로 받기
+    3-1 직렬화 이용
+      Serializable 상속받아서 vo 만들기
+
+    3-2 parcelable 이용
+      parcelable 상속받아서 VO만들기
+
+
+DB SQLite3 사용하기
+
+<리눅스 쉘 사용하기>
+cd : change directory
+상대경로 :
+  .	현재 폴더
+  ..	상위폴더 s
+  /	(리눅스) 최상위 경로
+  /data/data	(리눅스) 최상위 경로부터 data/data
+  data/data	(리눅스) 현재 경로부터 data/data
+  c:\경로1\경로2	(윈도우) 경로 표시방법
+
+android는 리눅스 커널위에 안드로이드가 탑재되어있기때문에 adb를 통해 shell로 들어갈수있음
+
+패키지명은 전세계 어플리케이션에서 유일해야함 -> data/data를 통해 그 패키지로 들어갈수있음 (root권한 필요 su)
+
+data/data에서 # mkdir databases로 폴더 만들고
+# cd databases
+# sqlite3	들어갈db이름	(여기부터는 sql단?으로 들어감)
+
+> .tables (테이블 확인)
+> create table if not exists tableName(dataName dataType);	테이블이 없을때만 이런 테이블을 만들라는 명령
+> .exit	빠져나옴
+
+
+<안드스튜 사용하기>
+autoincrement 키워드 사용하면 자동으로 값이 올라가게 함(시퀀스)
+
+------------------------------------------------0708--------------------------------------------------
+내가 알고있는 지식이 얕아도 책에 어떤 내용이 들어있는지는 봐둬라 (구현을 못해도 이런게 있다는 알고있어야함)
+
+member.db가 생기는 위치
+  /data/data/packagePath/databases 안에 member.db가 생성됨
+member.db에 들어가는법
+  sqlite3 member.db(들어갈 대상이 필요)
+  .tables
+
+DAO : data access object 
+
+data["num", "id", ......]
+data.index("num")	num이 가리키는 index가 나옴
+
+데이터 수정
+  한개 수정할때 : num = ?	["8"]
+  여러개 수정할때 : num >= ? and num <= ?	["5", "7"]
+                           num >= 5 and num <= 7 로 들어가게됨
+  -> where관련 조건을 배열로 받는 이유는 여러개가 들어갈 수 있게 하기 위함
+
+task관리
+  1. no history (= no task)
+    history를 남기지 않는 방법
+    한 task를 부를때 history를 없이 불렀기때문에 처음부터 task가 쌓이지 않음
+    주로 맨 마지막에 나오는 페이지들(info화면같은)에서 사용    
+
+  2. clear top
+    동일한거면 이전걸 무시(clear)하고 최근걸 top으로 올리는 방법
+    동일한 task가 있을때 이전 task를 지우는 방식
+    보통 중간에 끼어있는 액티비티들에 적용(자주 불리는 화면)
+
+  -> intent에 설정(flag)
+
+Pause() : back버튼
+Stop() : home버튼
+
+onCreate
+  전반적인 화면처리에 관련된것
+onStart / onResume
+  시간, 정보같은 데이터 -> 시간에 따라 바뀌어야하는것
+
+portrait / landscape
+화면이 돌아가지 않도록 하는 방법
+  manifest에서 screenOrientation을 주기 (portrait, landscape)
+
+네트워크 사용하는방법
+  1. 구글 스토어에서 설치할때 나오는 권한
+    manifest -> uses-permission -> INTERNET
+    permission은 다 권한을 따로 줘야함
+	
+  2. 어플 설치하고 실제로 그 권한을 쓰기 전에 뜨는 권한
+    사용자가 사용하겠다는 인증
+    multi permission
+    이건 코딩 파트에서도 권한을 줘야함..?
+    onRequestPermissionsResult() override
+	
+JSON
+  java script에서 object 를 표현하는 방법
+  브라우저에 요청을 하게되면 
+  rest controller
+    하얀 화면에 글자가 나오게 하는 그거
+    
+  JSON 표기법
+    1. [ "kim", "lee", ....]
+      JSON 배열
+
+    2. { "name":"kim":"age":33 }
+      JSON object
+
+    3. [{"name":"kim"},{..},{...}...]
+      배열에 오브젝트가 들어간 경우
+      가장 많이 쓰이는 방법
+
+    4. {"names":[,,,,,,,], "scores":{.................}]
+      오브젝트에 오브젝트가 들어간 경우
+      데이터가 많을때 많이 쓰는 방법
+
+  가장 많이 쓰는 방법
+    [ {"name":"kim", "age":33}, {"name":"kim", "age":33}, {"name":"kim", "age":33}, {"name":"kim", "age":33} ]
+
+--------------------------------------------0709---------------------------------------------
+URL
+  println("conn.responseCode : ${conn.responseCode}")
+    응답 결과에 대한 코드
+    200 : 정상 응답
+    400 : 경로나 파일에 대한 Not Found
+    500 : Server code error
+
+  println("conn.responseCode : ${conn.contentType}")
+    content type이 뭔지
+
+  println("conn.responseCode : ${conn.content}")
+
+
+  println("conn.responseCode : ${conn.responseMessage}")
+    code와 동일 (OK등으로 나옴)
+
+
+Stream
+  val inputStream:InputStream = conn.inputStream
+  val inputStreamReder:InputStreamReader = InputStreamReader(inputStream)
+  val br =  BufferedReader(inputStreamReder)
+  // text, input stream 등을 읽어들이는 IO 3총사 (안에 들은 내용을 읽을 수 있다.)
+  //println("한줄읽기:${br.readLine()}")
+
+  Text말고 기타 다른것도 있는 경우의 전체 파일 읽기
+    var txt:String? = ""
+    var tmp:String? = ""
+    while(true){
+        tmp = br.readLine()
+        println(tmp)
+        if(tmp == null) break
+        txt += tmp
+    }
+  
+  text만 있다는걸 아는 경우의 전체 파일 읽기
+    println(url.readText())
+
+분석 방법 / 데이터의 종류에 따라 라이브러리가 정해짐
+우리가 가져온 종류는 json형식 -> json 라이브러리 (xml이면 xml라이브버리를 사용)
+분석 = 파싱parsing
+어떤 라이브러리냐 -> 어떤 파서를 쓸거냐 의 의미
+json의 경우 파서의 종류가 많음
+  org라이브러리 사용(원하는게 없으면 받아서 쓰면 됨...)
+xml의 파싱 (안드로이드에 내장됨)
+  DOM (자바단에서도 쓸수있음) : 무서 전체 읽은후 파싱 (처음 읽을땐 오래걸리는데 그 뒤론 빠름)
+  SAX (안드로이드에 추가됨) : 문서를 읽으면서 파싱 (실시간에 강하지만 여러번 읽어도 계속 실시간이라 속도 일정)
+  Pull : 편리, 태그를 상수화해서 그 태그를 찾아 파싱하는 방법
+
+데이터를 실시간으로 받는 경우 JSON을 사용
+xml은 태그가 확실하다는 장점이 있지만 <></> 태그가 필수라서 데이터의 표현에 비해 양이 너무 많다는 단점이 있음
+spring의 경우 jackson라이브러리 사용
+
+xml : 명세등에 쓰이는 아주 엄격한 형식의 마크업 문서
+
+안드로이드에서는 org.json... 명세에 있다
+
+네트워크의 경우 스레드 처리를 하지 않으면 오류가 난다
+
+  추가 설정 (오류가 나는 경우_보안이 강화되어 추가해줘야함)
+    1. Nox의 경우
+      환경설정 > 휴대폰 네트워크 > 네트워크 연결 체크
+
+    2. AVD의 경우
+      2-1) AndroidManifest.xml의 appplication에 android:networkSecurityConfig="@xml/network_security_config"추가
+      2-2) res/xml/network_security_config.xml에
+        <?xml version="1.0" encoding="utf-8"?>
+        <network-security-config>
+            <base-config cleartextTrafficPermitted="true"/>
+        </network-security-config> 추가
+
+분석 데이터 파싱
+  json의 경우 껍데기(괄호)의 모양이 중요함
+  [ , , , , .....] : array
+  {K : V, .......} : object
+  형식에 위배되면 파싱을 못함
+
+Server에서 정보를 가져와서 원하는 형식의 텍스트를 읽어왔고
+읽어오기 위해서 URL을 스레드로 감쌌음!
+스레드로 도는 서브루틴은 메인이 아니라서(메인은 onCreate하는중) 서브루틴이 돌고 메인이 가지고 있는 ui에 set을 하려면 직접 가지않고 별도의 스레드 처리를 해줘야한다
+  
+<Grid View>
+내가 넣을 내용이 있으면 테이블 형태로 나오도록 하는것
+ArrayAdapter<String> 으로 받아왔었는데 텍스트가 아니고 이미지라면 이거 못씀
+  -> BaseAdapter를 상속받은 xxxAdapter를 개발자가 직접 커스텀해서 사용해야함
+  -> View 배열과 View와 관련된 그런걸 맘대로 만들어서 view타입으로 만들어서 ImageView로 사용
+그리드뷰는 컬럼의 폭에따라 한줄에 들어가는 갯수가 달라짐
+
+R.string.aaa -> string일것같지만 결국 다 숫자로 들어가게됨 string뿐 아니라 숫자, id, 이미지 등 전부 해당!
+
+레이아웃 인플레이터
+  하나가 아니라 여러개의 뷰를 가질수있는 것
+  val inflater = c.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    -> 해당 레이아웃 객체를 반환
+
+-------------------------------------------0710-----------------------------------
+php....
+책을 정독을 7번을 하면 책이 이해가 된다.....
+3번하는것도 힘들다....
+java200제 < 추천
+
+센서를 받아와서 디스플레이하기
+
+맨 위 상태줄을 notification? 영역이라고 한다 통지영역
+ㅇㅇㅇ매니저는 전부 getSystemService를 통해 받아옴
+
+엑셀레로메터
+  기본가속이 중력가속9.8m/s인데 여기서 흔들거나하면 가속이 올라감 -> 움직임을 감지
+  fastest > game > normal > ui 순으로 감지되는 딜레이가 줄어듦(fastest가 제일 자주감지)
+        
+
+안드로이드는 투명화이미지를 지원하는 확장자중 png와 친함(권장) ,gif는 여러프레임의 이미지를 넣을수있음
+
+이미지를 이미지뷰로 올린게 아니고 캔버스기능(draw기능)을 이용해 화면의 원하는 좌표에 그리라고 하는 경우가 있음
+  -> 원래 위치에 있던 그림을 지우고 새 위치에 그림을 그리는것
+  -> 좌표값 이용해 그림
+
+자이로센서는 움직임에 대해서만 감지(속도는 엑셀레로메터)
+registerListener는 SensorEventLister를 상속받아야함
+
+
+<google Map 사용하기>
+구글 api를 사용할수있는 key를 받아와서 해야함
+
+app이라는 개념에 아이콘을 눌러서 실행하면
+메인 액티비티를 두고 원하는 액티비티를 둬서 띄우는데 대부분은 액티비티를 띄우기보단 view를 바
+fragment는 뷰의 기능이 있음
+
+
+
+
+
+
+    
+
+
+
+
+
